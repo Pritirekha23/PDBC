@@ -8,3 +8,4 @@ conn = mysql.connector.connect(
 cur=conn.cursor()
 cur.execute("UPDATE MCA_STUDENT SET MARK=33 WHERE id=156")
 conn.commit()
+
