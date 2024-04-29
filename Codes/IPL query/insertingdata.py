@@ -1,71 +1,16 @@
+import mysql.connector
 
-# PDBC:python databse connectivity
-- to work python with mysql we required python ,mysql,python my sql connector software requireds
-#then we have to install a python module  pip install mysql-connector-python
+conn=mysql.connector.connect(
+    host='localhost',
+    user='root',
+    password='root_db',
+    database='IPL'
+)
 
-    >STEPS TO PREPARE PDBC PROGRAMM
-    >STEP1:
-      ### import MYSQL CONNECTOR 
-      ### Establish  Connection between python to mysql
-      ### create cursor object
-      ### execute SQL commands 
-      ### Save 
-
-
-    ### connect fun will give  my sql connection object
-    ### if u want to execute sql code from python we required cursor object.
-    ###  cursor have anything database required
-
-
-
-----------------------------------
-23April24
-----------
-->Writw python script to create a mysql table.(we will create table inside database)
-
-->insert single record into mysql table in different approach.
-->
-
-
-29April24
-----------
-Take IPL Data set
-1.what is the higest individual score of a batsman in ipl 2024.(5 members from each team (Player	Runs	BF	SR	4s	6s))  
-
-2. wHICH PLAYER HAS HIT MOST sXISEX.
-
-3. Which player taken most wicket.(5 members from each team ( Player Mat Inns No Runs Wkts BBI Avg Econ SR 4w 5w))
-
-4. Which team taken most wicket total.
-5. Which team is the leading scrorer.
-6. Which player is the most valuable player.
-7. What is the best bollowing figurw.
-8. Highest partnership.
-9.Who id the youngest player.
-10. Total number of century.
-11. How many hat-trick taken.(data)
-
-12. Most number of 4s .
-13.Most number of 6s.
-14.Most numbetr of wins.(data)
-15.Find out the winning percentages by team .
-
-
-https://www.iplt20.com/stats/2024
-season
-https://www.iplt20.com/stats/2024   
-
-
-
-table: 
-
-Add 20 questions by your own.
-
-
-
-
-IPL DATA:
-  (1,  "MI",  "Jasprit Bumrah",9, 9, 36, 239, 14, 21/5, 17.07, 6.63, 15.42, 0,1),
+cur=conn.cursor()
+sql_code="INSERT INTO IPLDATA(ID,TEAM,NAME,MATCHES,INNINGS,OVERS,RUNS,WICKETS,BBI,AVG,ECONOMY,SR,4w,5w) VALUES (%s, %s, %s,%s, %s, %s,%s, %s, %s,%s, %s, %s,%s,%s)"
+data=[
+    (1,  "MI",  "Jasprit Bumrah",9, 9, 36, 239, 14, 21/5, 17.07, 6.63, 15.42, 0,1),
     (2,  "MI",  "Gerald Coetzee", 8, 8, 28.3, 288, 12,4/34 , 24.00, 10.10, 14.25, 1, 0),
     (3,  "MI",  "Akash Madhwal", 5, 5, 18.1, 205, 5, 3/20, 41.00, 11.28, 21.80, 0, 0),
     (4,  "MI",  "Piyush Chawla", 6, 6, 18.0, 184, 4, 1/31, 46.00, 10.22, 27.00, 0, 0),
@@ -115,15 +60,8 @@ IPL DATA:
     (48,  "RCB",  "Cameron Green", 8, 8, 20.1, 194, 6, 12/2, 32.33, 9.61, 20.16, 0, 0),
     (49,  "RCB",  "Glenn Maxwell", 7, 5, 12.0, 104, 5, 23/2, 20.80, 8.66, 14.40, 0, 0),
     (50,  "RCB",  "Reece Topley", 4, 4, 15.0, 168, 4, 27/2, 42.00, 11.20, 22.50, 0, 0)
-
-
-
-
-
-
-
-
-
-
     
-    
+    ]
+
+cur.executemany(sql_code,data)
+conn.commit()
